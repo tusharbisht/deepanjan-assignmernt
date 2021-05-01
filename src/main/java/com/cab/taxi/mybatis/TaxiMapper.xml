@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace = "TaxiMapper">
+
+   	<insert id = "addNewDriver" parameterType = "String">
+      	INSERT INTO DRIVER (DRIVER_ID, NAME, PHONE_NUMBER) VALUES (#{driverId}, #{name}, #{phoneNUMBER});
+   	</insert>
+   
+	<select id="getDriverHistory" parameterType="String" resultType="com.cab.taxi.model.Ride"> 
+   		SELECT * FROM RIDES WHERE "DRIVER_ID" = #{driverID} 
+   	</select> 
+   	
+   	<update id="acceptRide" parameterType="String"> 
+   		UPDATE RIDES SET DRIVER_ID = #{driverID}, STATUS = "ONGOING" WHERE RIDE_ID = #{rideID}
+   	</update> 
+   	
+   	<select id="getRideDetails" parameterType="String" resultType="com.cab.taxi.model.Ride"> 
+   		SELECT * FROM RIDES WHERE "RIDE_ID" = #{rideID} 
+   	</select> 
+   	
+   	<update id="updateRideStatus" parameterType="String"> 
+   		UPDATE RIDES SET STATUS = #{status} WHERE RIDE_ID = #{rideID}
+   	</update> 
+   	
+   	<insert id = "addNewRide" parameterType = "String">
+      	INSERT INTO RIDE (RIDE_ID, AMOUNT, DISTANCE, DROP_LOCATION, PICKUP_LOCATION, RATING, STATUS, DRIVER_ID, USER_ID) VALUES (#{rideID},#{amount},#{distance},#{dropLocation},#{pickupLocation},#{rating},#{status},#{driverID},#{userID});
+   	</insert>
+   	
+   	<select id="getUserHistory" parameterType="String" resultType="com.cab.taxi.model.Ride"> 
+   		SELECT * FROM RIDES WHERE "USER_ID" = #{driverID} 
+   	</select> 
+    	
+</mapper>
